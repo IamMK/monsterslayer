@@ -1,4 +1,6 @@
-// Naprawić logi!!!
+function setValue(min, max){
+    return Math.floor(Math.random() * ((max+1) - min) + min);
+}
 
 const app = Vue.createApp({
     data() {
@@ -28,25 +30,25 @@ const app = Vue.createApp({
             this.logs = [];
         },
         pAttack() {
-            const attackValue = Math.floor(Math.random() * (7 - 2) + 2); //2-6
+            const attackValue = setValue(2, 6);
             this.mHealth -= attackValue;
             this.addLog("player", "attack", attackValue);
             this.mAttack();
         },
         mAttack() {
-            const attackValue = Math.floor(Math.random() * (11 - 4) + 4); // 4-10
+            const attackValue = setValue(4, 10);
             this.pHealth -= attackValue;
             this.addLog("monster", "attack", attackValue);
             this.round++;
         },
         pSpecialAttack() {
-            const attackValue = Math.floor(Math.random() * (12 - 6) + 6); //6-11
+            const attackValue = setValue(6, 11);
             if (this.mHealth > 0) this.mHealth -= attackValue;
             this.addLog("player", "special attack", attackValue);
             this.mAttack();
         },
         pHeal() {
-            let healValue = Math.floor(Math.random() * (17 - 13) + 13); //13-16
+            let healValue = setValue(13-16);
             if (this.pHealth + healValue > 100) {
                 healValue = 100 - this.pHealth;
                 this.pHealth = 100;
