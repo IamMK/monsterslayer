@@ -1,31 +1,32 @@
-function setValue(min, max){
-    return Math.floor(Math.random() * ((max+1) - min) + min);
+function setValue(min, max) {
+    return Math.floor(Math.random() * ((max + 1) - min) + min);
 }
-function appInitialValues(){
-    return {
+
+const initialValues = () => ({
         pHealth: 100,
         mHealth: 100,
         round: 1,
         gameOver: false,
         matchResult: '',
         logs: [],
-    }
-}
+})
+
+console.log(initialValues());
 
 const app = Vue.createApp({
-    data(){
-        return appInitialValues()
+    data() {
+        return initialValues();
     },
     methods: {
-        addLog(who, what, howMuch){
+        addLog(who, what, howMuch) {
             this.logs.push({
                 who,
                 what,
                 howMuch
             });
         },
-        restart(){
-            Object.assign(this.$data, appInitialValues());
+        restart() {
+            Object.assign(this.$data, initialValues());
         },
         pAttack() {
             const attackValue = setValue(2, 6);
@@ -46,8 +47,9 @@ const app = Vue.createApp({
             this.mAttack();
         },
         pHeal() {
-            let healValue = setValue(13-16);
-            if (this.pHealth + healValue > 100) {
+            let healValue = setValue(13, 16);
+            console.log(healValue);
+            if (this.pHealth + healValue >= 100) {
                 healValue = 100 - this.pHealth;
                 this.pHealth = 100;
             }
@@ -80,7 +82,7 @@ const app = Vue.createApp({
                 this.gameOver = true;
                 this.matchResult = 'draw';
             }
-            else if(value <= 0){
+            else if (value <= 0) {
                 this.pHealth = 0;
                 this.gameOver = true;
                 this.matchResult = "monster";
@@ -93,7 +95,7 @@ const app = Vue.createApp({
                 this.gameOver = true;
                 this.matchResult = 'draw';
             }
-            else if(value <= 0){
+            else if (value <= 0) {
                 this.mHealth = 0;
                 this.gameOver = true;
                 this.matchResult = "player";
