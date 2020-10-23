@@ -1,17 +1,20 @@
 function setValue(min, max){
     return Math.floor(Math.random() * ((max+1) - min) + min);
 }
+function appInitialValues(){
+    return {
+        pHealth: 100,
+        mHealth: 100,
+        round: 1,
+        gameOver: false,
+        matchResult: '',
+        logs: [],
+    }
+}
 
 const app = Vue.createApp({
-    data() {
-        return {
-            pHealth: 100,
-            mHealth: 100,
-            round: 1,
-            gameOver: false,
-            matchResult: '',
-            logs: []
-        }
+    data(){
+        return appInitialValues()
     },
     methods: {
         addLog(who, what, howMuch){
@@ -22,12 +25,7 @@ const app = Vue.createApp({
             });
         },
         restart(){
-            this.pHealth = 100;
-            this.mHealth = 100;
-            this.round = 1;
-            this.gameOver = false;
-            this.matchResult = '';
-            this.logs = [];
+            Object.assign(this.$data, appInitialValues());
         },
         pAttack() {
             const attackValue = setValue(2, 6);
