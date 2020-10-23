@@ -11,8 +11,6 @@ const initialValues = () => ({
         logs: [],
 })
 
-console.log(initialValues());
-
 const app = Vue.createApp({
     data() {
         return initialValues();
